@@ -13,11 +13,11 @@ connection = pymysql.connect(host='localhost',
 
 try:
     # Run a query
-    with connection.cursor(pymysql.cursors.DictCursor) as cursor:
-        sql = "select * from Genre;"
-        cursor.execute(sql)
-        for row in cursor:
-            print(row)
+    with connection.cursor() as cursor:
+        cursor.execute("""Create Table if not exists
+                        friends(name char(20), age int, DOB datetime);""")
+        # Note that the above will still display a warning (not error) if the
+        # table already exists.
 finally:
     # Close the connection, regardless of whether the above was successful
     connection.close()
